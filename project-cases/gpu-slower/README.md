@@ -1,10 +1,3 @@
----
-title: "Case C Starter: GPU Slower End to End"
-type: "starter-code guide"
-canvas-publishing:
-  publish: false
----
-
 # Case C Starter: GPU Slower End to End
 
 The standard complete path uses runnable CPU measurements plus an instructor-provided accelerator trace. A physical GPU is optional and must use the same timing-scope fields if added.

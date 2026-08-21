@@ -1,10 +1,3 @@
----
-title: "GPU/Fallback Trace Analysis Template"
-type: "starter-code template"
-canvas-publishing:
-  publish: false
----
-
 # GPU/Fallback Trace Analysis
 
 Complete this worksheet for the evidence path your group used. Trace-based evidence,

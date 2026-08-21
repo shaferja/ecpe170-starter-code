@@ -1,10 +1,3 @@
----
-title: "Python/C++ Extension Starter Packet"
-type: "starter-code guide"
-canvas-publishing:
-  publish: false
----
-
 # Python/C++ Extension Starter Packet
 
 This packet wraps the known-good kernel in `../02-cpp-kernel/` with pybind11. Use

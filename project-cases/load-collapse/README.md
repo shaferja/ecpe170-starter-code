@@ -1,10 +1,3 @@
----
-title: "Case A Starter: Load Collapse"
-type: "starter-code guide"
-canvas-publishing:
-  publish: false
----
-
 # Case A Starter: Load Collapse
 
 This working localhost service uses a bounded request queue and a configurable worker pool. It logs queue wait, compute time, and total service time without telling you which mechanism dominates on your VM.

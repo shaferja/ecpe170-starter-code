@@ -1,10 +1,3 @@
----
-title: "Cache, Compiler Output, and CPU Parallelism Starter Packet"
-type: "starter-code guide"
-canvas-publishing:
-  publish: false
----
-
 # Cache, Compiler Output, and CPU Parallelism Starter Packet
 
 This packet supplies the runnable examples for Activities 13-17. Required work

@@ -1,10 +1,3 @@
----
-title: "Case B Starter: Fast Kernel, Slow Product"
-type: "starter-code guide"
-canvas-publishing:
-  publish: false
----
-
 # Case B Starter: Fast Kernel, Slow Product
 
 This packet exposes three comparable paths:

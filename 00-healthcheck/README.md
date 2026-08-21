@@ -1,14 +1,6 @@
----
-title: "ECPE 170 Personal Linux VM Health Check"
-type: "starter-code guide"
-canvas-publishing:
-  publish: false
----
-
-<!-- {"tag": "publish-hide-next-line"} -->
 # ECPE 170 Personal Linux VM Health Check
 
-Run [`healthcheck.sh`](healthcheck.sh) inside your personal Ubuntu Linux VM after installing the complete package list in the [VMware and Ubuntu Setup Guide](../../resources/vmware-ubuntu-setup.md#step-6-install-the-canonical-course-toolchain).
+Run [`healthcheck.sh`](healthcheck.sh) inside your personal Ubuntu Linux VM after installing the complete package list from the VMware and Ubuntu Setup Guide in the course Canvas site.
 
 ```bash
 cd ~/ecpe170/canvas/starter-code/00-healthcheck

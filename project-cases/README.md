@@ -1,10 +1,3 @@
----
-title: "Performance Emergency Room Starter Cases"
-type: "starter-code guide"
-canvas-publishing:
-  publish: false
----
-
 # Performance Emergency Room Starter Cases
 
 These three directories contain working, correctness-tested starting systems for the individual Class Project. Copy only your selected case into your personal project repository, preserve the original in an initial commit, and follow that case README.

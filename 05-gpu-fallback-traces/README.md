@@ -1,10 +1,3 @@
----
-title: "GPU and Fallback Trace Starter Packet"
-type: "starter-code guide"
-canvas-publishing:
-  publish: false
----
-
 # GPU and Fallback Trace Starter Packet
 
 This packet supports Activities 18-19 through three equally valid evidence paths:

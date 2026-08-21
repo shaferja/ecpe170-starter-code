@@ -1,10 +1,3 @@
----
-title: "Benchmark Reproducibility Receipt Template"
-type: "starter-code template"
-canvas-publishing:
-  publish: false
----
-
 # Benchmark Reproducibility Receipt
 
 - **Claim:**

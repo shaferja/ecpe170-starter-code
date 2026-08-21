@@ -1,11 +1,3 @@
----
-title: "ECPE 170 Student Starter Code"
-type: "repository guide"
-canvas-publishing:
-  publish: false
----
-
-<!-- {"tag": "publish-hide-next-line"} -->
 # ECPE 170 Student Starter Code
 
 This public repository is the student-facing source for ECPE 170 health checks, starter programs, traces, and worksheet templates. Files here are starting points for your own work, not answer keys. You remain responsible for understanding, testing, measuring, and explaining anything you use.

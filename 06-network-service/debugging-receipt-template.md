@@ -1,10 +1,3 @@
----
-title: "Networking Debugging Receipt Template"
-type: "starter-code template"
-canvas-publishing:
-  publish: false
----
-
 # Networking Debugging Receipt
 
 Use one receipt to preserve evidence before changing several layers at once.

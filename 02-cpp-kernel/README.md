@@ -1,10 +1,3 @@
----
-title: "C++ Vector-Search Kernel Starter Packet"
-type: "starter-code guide"
-canvas-publishing:
-  publish: false
----
-
 # C++ Vector-Search Kernel Starter Packet
 
 These files provide a known-good native kernel for Activities 09-10. The same

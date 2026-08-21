@@ -1,10 +1,3 @@
----
-title: "Python Vector-Search Starter Packet"
-type: "starter-code guide"
-canvas-publishing:
-  publish: false
----
-
 # Python Vector-Search Starter Packet
 
 These portable Python files support Activities 04-08. Run them on your personal

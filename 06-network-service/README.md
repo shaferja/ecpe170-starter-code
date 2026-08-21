@@ -1,10 +1,3 @@
----
-title: "Network Vector Search Service Starter Packet"
-type: "starter-code guide"
-canvas-publishing:
-  publish: false
----
-
 # Network Vector Search Service Starter Packet
 
 This packet supplies a small localhost vector-search service for Activities 20-23.
