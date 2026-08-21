@@ -1,0 +1,5 @@
+search_ext*.so
+search_ext*.dylib
+search_ext*.pyd
+__pycache__/
+.venv/

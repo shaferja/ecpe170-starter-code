@@ -1,0 +1,6 @@
+.venv/
+__pycache__/
+results/
+case_b_native*.so
+case_b_native*.dylib
+case_b_native*.pyd

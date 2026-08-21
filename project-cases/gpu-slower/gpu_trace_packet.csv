@@ -1,0 +1,9 @@
+trace_id,provenance,residency,batch_size,h2d_ms,compute_ms,d2h_ms,gpu_total_ms,cpu_total_ms,correct
+gpu-teaching-2026-01,instructor-provided teaching trace,database-resident,1,0.080,0.055,0.045,0.180,0.120,PASS
+gpu-teaching-2026-02,instructor-provided teaching trace,database-resident,8,0.190,0.105,0.070,0.365,0.720,PASS
+gpu-teaching-2026-03,instructor-provided teaching trace,database-resident,32,0.510,0.260,0.120,0.890,2.800,PASS
+gpu-teaching-2026-04,instructor-provided teaching trace,database-resident,128,1.840,0.850,0.310,3.000,10.900,PASS
+gpu-teaching-2026-05,instructor-provided teaching trace,copy-each-request,1,5.400,0.055,0.045,5.500,0.120,PASS
+gpu-teaching-2026-06,instructor-provided teaching trace,copy-each-request,8,5.510,0.105,0.070,5.685,0.720,PASS
+gpu-teaching-2026-07,instructor-provided teaching trace,copy-each-request,32,5.830,0.260,0.120,6.210,2.800,PASS
+gpu-teaching-2026-08,instructor-provided teaching trace,copy-each-request,128,7.160,0.850,0.310,8.320,10.900,PASS

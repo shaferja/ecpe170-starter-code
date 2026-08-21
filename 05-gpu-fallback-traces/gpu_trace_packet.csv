@@ -1,0 +1,9 @@
+evidence_path,batch_size,data_residency,h2d_ms,launch_compute_ms,d2h_ms,total_ms,notes
+gpu_copy_each_batch,1,copy_each_batch,0.420,0.085,0.110,0.642,fixed transfer and launch costs dominate
+gpu_copy_each_batch,8,copy_each_batch,0.455,0.190,0.118,0.792,overhead is shared across more queries
+gpu_copy_each_batch,32,copy_each_batch,0.525,0.520,0.135,1.218,compute and movement are comparable
+gpu_copy_each_batch,128,copy_each_batch,0.790,1.825,0.205,2.873,highest batch throughput but more batch work
+gpu_resident_index,1,resident_index,0.045,0.085,0.110,0.267,index remains on device; query and result still move
+gpu_resident_index,8,resident_index,0.070,0.190,0.118,0.405,index residency reduces repeated input movement
+gpu_resident_index,32,resident_index,0.120,0.520,0.135,0.808,compute becomes the largest named component
+gpu_resident_index,128,resident_index,0.305,1.825,0.205,2.390,large batch has best throughput but not lowest latency
