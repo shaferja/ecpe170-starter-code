@@ -45,18 +45,18 @@ std::pair<std::size_t, double> find_nearest_copy(const py::sequence& rows,
     }
     std::vector<double> database;
     database.reserve(vector_count * dimension);
-    for (const py::handle row_handle : rows) {
+    for (const py::handle& row_handle : rows) {
         const py::sequence row = py::reinterpret_borrow<py::sequence>(row_handle);
         if (static_cast<std::size_t>(py::len(row)) != dimension) {
             throw py::value_error("database rows and query dimensions must match");
         }
-        for (const py::handle value : row) {
+        for (const py::handle& value : row) {
             database.push_back(py::cast<double>(value));
         }
     }
     std::vector<double> query;
     query.reserve(dimension);
-    for (const py::handle value : query_values) {
+    for (const py::handle& value : query_values) {
         query.push_back(py::cast<double>(value));
     }
     return search(database.data(), vector_count, dimension, query.data());

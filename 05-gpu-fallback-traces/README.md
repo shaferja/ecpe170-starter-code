@@ -51,7 +51,7 @@ vector-search compute, and `d2h_ms` is result copying. These numbers are not fak
 measurements. Use them to practice separating scopes and to compare with
 `gpu_trace_packet.csv`, which supplies representative instructor GPU evidence.
 
-Use `--database-residency copy-each-trial` to model the extra cost of preparing the
+Use `--database-residency copy_each_trial` to model the extra cost of preparing the
 database on every operation. The default, `resident`, prepares the database once.
 This is a CPU analogy for reasoning about whether the vector index can remain on a
 device across request batches.
