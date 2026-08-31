@@ -105,7 +105,7 @@ check_command "npm" npm npm
 if command -v code >/dev/null 2>&1; then
     pass "Visual Studio Code: $(command -v code)"
 else
-    fail "Visual Studio Code is missing (install with: sudo snap install code --classic)"
+    fail "Visual Studio Code is missing (follow the Microsoft APT-repository steps in the course setup guide, then install package: code)"
 fi
 
 printf '\n%s\n' '== Versions and Python capabilities =='
