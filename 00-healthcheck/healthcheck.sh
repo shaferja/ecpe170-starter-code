@@ -102,6 +102,12 @@ check_command "pkg-config" pkg-config pkg-config
 check_command "Node.js" node nodejs
 check_command "npm" npm npm
 
+if command -v code >/dev/null 2>&1; then
+    pass "Visual Studio Code: $(command -v code)"
+else
+    fail "Visual Studio Code is missing (install with: sudo snap install code --classic)"
+fi
+
 printf '\n%s\n' '== Versions and Python capabilities =='
 if command -v python3 >/dev/null 2>&1; then
     pass "$(python3 --version 2>&1)"
@@ -133,6 +139,9 @@ if command -v cmake >/dev/null 2>&1; then
 fi
 if command -v make >/dev/null 2>&1; then
     pass "$(make --version 2>&1 | head -n 1)"
+fi
+if command -v code >/dev/null 2>&1; then
+    pass "Visual Studio Code version: $(code --version 2>&1 | head -n 1)"
 fi
 
 tmp_dir="$(mktemp -d 2>/dev/null || true)"
