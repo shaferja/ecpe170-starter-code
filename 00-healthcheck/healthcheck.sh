@@ -142,6 +142,23 @@ if command -v make >/dev/null 2>&1; then
 fi
 if command -v code >/dev/null 2>&1; then
     pass "Visual Studio Code version: $(code --version 2>&1 | head -n 1)"
+
+    printf '\n%s\n' '== Required VS Code extensions =='
+    if vscode_extensions="$(code --list-extensions 2>/dev/null)"; then
+        if printf '%s\n' "$vscode_extensions" | grep -Fqx 'ms-python.python'; then
+            pass "VS Code Python extension: ms-python.python"
+        else
+            fail "VS Code Python extension is missing (install with: code --install-extension ms-python.python)"
+        fi
+
+        if printf '%s\n' "$vscode_extensions" | grep -Fqx 'ms-vscode.cpptools'; then
+            pass "VS Code C/C++ extension: ms-vscode.cpptools"
+        else
+            fail "VS Code C/C++ extension is missing (install with: code --install-extension ms-vscode.cpptools)"
+        fi
+    else
+        fail "Could not list VS Code extensions (run: code --list-extensions)"
+    fi
 fi
 
 tmp_dir="$(mktemp -d 2>/dev/null || true)"
