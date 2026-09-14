@@ -46,7 +46,15 @@ def find_nearest(
 def find_nearest_flat(
     flat_vectors: Sequence[float], query: Sequence[float], dimension: int
 ) -> tuple[int, float]:
-    """Search vectors stored consecutively in one flat Python sequence."""
+    """Search vectors stored consecutively in one flat Python sequence.
+
+    Activity 07 compares this layout with find_nearest's nested lists while
+    keeping the exact-search task unchanged. For example, [[1.0, 2.0], [3.0, 4.0]]
+    becomes [1.0, 2.0, 3.0, 4.0] with dimension=2; vector i starts at i * dimension.
+    The result still contains the vector index, not an offset in the flat list.
+    A Python list holds references to number objects, not packed numeric values,
+    so flattening changes indexing and list structure without guaranteeing speed.
+    """
     if dimension < 1:
         raise ValueError("dimension must be at least 1")
     if len(query) != dimension:
