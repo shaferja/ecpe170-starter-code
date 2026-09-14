@@ -33,8 +33,8 @@ python3 vector_search_benchmark.py \
 representation before starting the timer. Its reported timed scope is exact search
 for all queries; setup and conversion are excluded.
 
-Use [benchmark-receipt-template.md](benchmark-receipt-template.md) with every major
-claim. Record the exact command rather than reconstructing it later.
+Use the **Benchmark Reproducibility Receipt** page under **Resources** in the
+Canvas course with every major claim. Record the exact command rather than reconstructing it later.
 
 ## Profile the search kernel
 
