@@ -4,7 +4,8 @@ Run [`healthcheck.sh`](healthcheck.sh) inside your personal Ubuntu Linux VM afte
 
 ```bash
 cd ~/ecpe170-starter-code/00-healthcheck
-bash healthcheck.sh | tee healthcheck-receipt.txt
+mkdir -p ~/ecpe170/activity02/results
+bash healthcheck.sh | tee ~/ecpe170/activity02/results/healthcheck-receipt.txt
 ```
 
 Use the actual path to your starter-code checkout if it is not `~/ecpe170-starter-code`. The script uses a temporary directory for compile and import checks, removes that directory when it exits, and does not modify your project. It requires no administrator access, GPU, container, or Canvas credentials.
