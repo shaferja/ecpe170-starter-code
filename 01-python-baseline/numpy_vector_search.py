@@ -16,9 +16,8 @@ from vector_search_baseline import find_nearest
 from vector_search_benchmark import make_inputs, nonnegative_int, positive_int
 
 
-def find_nearest_numpy(vectors, query) -> tuple[int, float]:
-    vectors_array = np.asarray(vectors, dtype=np.float64)
-    query_array = np.asarray(query, dtype=np.float64)
+def find_nearest_numpy(vectors_array: np.ndarray, query_array: np.ndarray) -> tuple[int, float]:
+    """Search existing float64 NumPy arrays; no input conversion happens here."""
     if vectors_array.ndim != 2 or vectors_array.shape[0] == 0:
         raise ValueError("vectors must be a non-empty two-dimensional array")
     if query_array.ndim != 1 or query_array.shape[0] != vectors_array.shape[1]:
@@ -30,6 +29,13 @@ def find_nearest_numpy(vectors, query) -> tuple[int, float]:
     distances = np.sum(differences * differences, axis=1)
     best_index = int(np.argmin(distances))
     return best_index, float(distances[best_index])
+
+
+def find_nearest_numpy_with_conversion(vectors, query) -> tuple[int, float]:
+    """Convert Python lists on each call, then search the resulting arrays."""
+    vectors_array = np.asarray(vectors, dtype=np.float64)
+    query_array = np.asarray(query, dtype=np.float64)
+    return find_nearest_numpy(vectors_array, query_array)
 
 
 def parse_args() -> argparse.Namespace:
@@ -59,6 +65,7 @@ def main() -> None:
     vectors, queries = make_inputs(
         args.vectors, args.dimension, args.queries, args.seed
     )
+    # Convert once before timing the numpy_preconverted workload.
     vectors_array = np.asarray(vectors, dtype=np.float64)
     queries_array = np.asarray(queries, dtype=np.float64)
 
@@ -75,7 +82,7 @@ def main() -> None:
     workloads = {
         "python_nested": lambda: [find_nearest(vectors, query) for query in queries],
         "numpy_conversion_included": lambda: [
-            find_nearest_numpy(vectors, query) for query in queries
+            find_nearest_numpy_with_conversion(vectors, query) for query in queries
         ],
         "numpy_preconverted": lambda: [
             find_nearest_numpy(vectors_array, query) for query in queries_array

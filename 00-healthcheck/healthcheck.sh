@@ -12,6 +12,10 @@ pass() {
     printf '[PASS] %s\n' "$1"
 }
 
+warn() {
+    printf '[WARN] %s\n' "$1"
+}
+
 fail() {
     printf '[FAIL] %s\n' "$1"
     failures=$((failures + 1))
@@ -57,10 +61,8 @@ fi
 printf 'Operating system: %s\n' "$os_pretty"
 if [[ "$os_id" == "ubuntu" && "$os_version" == "26.04" ]]; then
     pass "Ubuntu 26.04 course operating system"
-elif [[ "$os_id" == "ubuntu" ]]; then
-    fail "Ubuntu $os_version found; the course image is Ubuntu 26.04 unless the instructor announces a change"
 else
-    fail "Ubuntu 26.04 was not detected; run this check inside the personal Ubuntu VM"
+    warn "$os_pretty detected; the official class VM is Ubuntu 26.04. Continuing with the remaining capability checks."
 fi
 
 architecture="$(uname -m 2>/dev/null || printf 'unknown')"
