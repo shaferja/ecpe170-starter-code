@@ -8,19 +8,45 @@ This packet exposes three comparable paths:
 
 The distinction makes boundary scope measurable without prescribing which product policy you should recommend.
 
-## Build and Baseline
+## Baseline
+
+First follow the [copy instructions](../README.md#copy-your-starter). Run commands in `~/ecpe170-project/fast-kernel-slow-product`.
+
+**Environment setup and build:**
 
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
 python -m pip install numpy pybind11
 PYTHON=python ./build_ext.sh
-python -m unittest -v test_contract.py
-mkdir -p results
-python benchmark.py --vectors 8 256 4096 --dimension 32 --queries 12 --trials 5 --warmups 1 --csv results/baseline.csv
 ```
 
-Preserve the generated extension only in your local environment; commit source and evidence, not architecture-specific `.so` files or `.venv/`.
+**Starter correctness test:** this command verifies that the Python and native paths satisfy the same required contract.
+
+```bash
+python -m unittest -v test_contract.py 2>&1 | tee m0-correctness.txt
+```
+
+**Baseline customer symptom command:** this benchmark reports component and end-to-end timings across small, medium, and large workloads. Its rows show the baseline degradation the customer is concerned about: the impressive native-kernel speedup produces a much smaller product-level improvement for some workloads.
+
+```bash
+python benchmark.py --vectors 8 256 4096 --dimension 32 --queries 12 --trials 5 --warmups 1 --csv results/m0-baseline.csv \
+  | tee m0-baseline-benchmark.txt
+```
+
+Save the unmodified correctness, component, and end-to-end timing rows before editing. Upload them for M0.
+
+## Baseline Graph for M0
+
+The benchmark commands above append CSV rows. Use a new results filename if you repeat a baseline session, and pass that same filename to the plotter; keep earlier evidence. From your personal case folder, install Matplotlib in a virtual environment and plot your saved baseline:
+
+```bash
+source .venv/bin/activate
+python -m pip install matplotlib
+python plot_results.py results/m0-baseline.csv --save results/m0-baseline.png --no-show
+```
+
+Omit `--no-show` to also open a graph window on a desktop VM. Upload `results/m0-baseline.png` and its input CSV file(s) with the command/output receipts. In `m0-response`, describe one relationship visible in the graph and what it does **not** yet establish about the cause. A graph documents the symptom; it does not prove a diagnosis.
 
 ## Evidence Contract
 

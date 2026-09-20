@@ -4,7 +4,9 @@ This working localhost service uses a bounded request queue and a configurable w
 
 ## Baseline
 
-First follow the [starter copy instructions](../README.md#copy-your-starter), including the shared `common` folder. Run these commands from `~/ecpe170-project/load-collapse`.
+First follow the [copy instructions](../README.md#copy-your-starter). Run commands in `~/ecpe170-project/load-collapse`.
+
+In each terminal, first run `cd ~/ecpe170-project/load-collapse`.
 
 In terminal 1:
 
@@ -23,15 +25,26 @@ python3 -m unittest -v test_contract.py 2>&1 | tee m0-correctness.txt
 **Baseline customer symptom commands:** these two load tests compare light demand with concurrent demand. Together they show the baseline performance degradation the customer is concerned about: sharply worse tail latency as concurrency rises.
 
 ```bash
-python3 load_test.py --host 127.0.0.1 --port 17101 --clients 1 --requests 24 \
+python3 load_test.py --host 127.0.0.1 --port 17101 --clients 1 --requests 24 --csv results/m0-baseline.csv \
   | tee m0-baseline-light.txt
-python3 load_test.py --host 127.0.0.1 --port 17101 --clients 12 --requests 48 \
+python3 load_test.py --host 127.0.0.1 --port 17101 --clients 12 --requests 48 --csv results/m0-baseline.csv \
   | tee m0-baseline-concurrent.txt
 ```
 
-Save the server log as well as these correctness and load-test files before editing. Upload them for M0.
+Save the server log as well as these correctness and load-test files before editing. Upload them for M0. Stop the server in terminal 1 with Ctrl-C after collecting the baseline.
 
-Stop the server with Ctrl-C when you finish collecting the baseline. For later experiments, you may add `--csv results/baseline.csv` to a load-test command to append a CSV receipt in addition to its terminal output.
+## Baseline Graph for M0
+
+The benchmark commands above append CSV rows. Use a new results filename if you repeat a baseline session, and pass that same filename to the plotter; keep earlier evidence. From your personal case folder, install Matplotlib in a virtual environment and plot your saved baseline:
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install matplotlib
+python plot_results.py results/m0-baseline.csv --save results/m0-baseline.png --no-show
+```
+
+Omit `--no-show` to also open a graph window on a desktop VM. Upload `results/m0-baseline.png` and its input CSV file(s) with the command/output receipts. In `m0-response`, describe one relationship visible in the graph and what it does **not** yet establish about the cause. A graph documents the symptom; it does not prove a diagnosis.
 
 ## Evidence Contract
 
