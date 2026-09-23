@@ -5,43 +5,45 @@
 
 namespace ecpe170 {
 
-// A struct groups the two values returned by find_nearest. The function returns
-// this small result by value; it does not return a vector or a view of one.
+// A search returns two related values. This struct groups them into one result:
+// the selected vector's position and its squared distance from the query.
 struct SearchResult {
     std::size_t index;         // Position of the selected vector (starting at 0).
     double squared_distance;  // Its squared distance from the query.
 };
 
-// This declaration describes how to call find_nearest; search_kernel.cpp
-// contains the function body. SearchResult before the name is the return type.
-// Each comma-separated parameter below consists of a type followed by a name.
+// This is a function declaration: it tells callers how to use find_nearest.
+// The body is defined in search_kernel.cpp. The leading SearchResult is the
+// return type: one object containing the two fields shown above. The four
+// comma-separated parameters describe the database and the query to search for.
 //
-// std::span<const double> means a non-owning view of contiguous double elements:
-//   std:: identifies a standard-library type; <...> specifies its element type.
-//   span describes existing storage using a starting address and element count.
-//   const double allows reading, but not changing, elements through this view.
-// A span does not allocate, copy, or free the numeric data. Its .size() reports
-// the number of elements; [i] accesses an element; .subspan(...) views a portion
-// of the same storage without copying that portion. Indices and subspan ranges
-// must be valid; C++20 does not guarantee bounds checks for these operations.
+// Reading "std::span<const double> flat_vectors":
+//   std::       selects a name from the C++ standard-library namespace.
+//   span<...>  is a C++20 view of contiguous (adjacent-in-memory) elements.
+//   const double means each element is a double that this view cannot modify.
+//   flat_vectors is the parameter name: the database's coordinate sequence.
+// Think of this span as a starting address plus an element count. It lets the
+// function access existing coordinates without allocating or copying them.
+// The query parameter has the same span type, but views just the query vector.
 //
-// The span objects are passed by value, so only the small views are copied.
-// "Borrows" means the caller must keep the underlying storage valid during the
-// call. It is an ownership/lifetime description, not pass-by-reference syntax:
-// a C++ reference parameter has & in its type, and these parameters do not.
-// This function does not retain the views after returning. See distance.hpp
-// for a comparison with a const std::vector<double>& reference parameter.
+// The database stores each vector's coordinates consecutively in one flat
+// sequence. For example, three vectors with two coordinates each occupy six
+// consecutive elements. A span knows the total element count, but not how
+// those elements are grouped into vectors. The next two parameters supply
+// that shape: vector_count is the number of vectors, and dimension is the
+// number of coordinates per vector. Their type, std::size_t, is the standard
+// unsigned integer type used for sizes and indices.
 //
-// Parameters:
-//   flat_vectors: one view containing all database coordinates, with each
-//                 vector's coordinates stored consecutively (row by row).
-//   vector_count: how many vectors those coordinates represent.
-//   dimension:    how many coordinates each vector contains.
-//   query:        a view of the query vector's coordinates.
-// std::size_t is the standard unsigned integer type used for sizes and indices.
-// vector_count and dimension are ordinary integer values passed by value.
-// A span knows its element count, but not a table's row/column shape, so the
-// function also needs vector_count and dimension to interpret flat_vectors.
+// A span is non-owning: the caller must keep the underlying storage valid
+// throughout the call. Passing a span by value copies only the small view,
+// not the coordinates. This function reads through the views and does not
+// keep them after returning. See distance.hpp for more about span syntax
+// and how a view differs from a reference parameter.
+//
+// When reading the implementation, .size() gives a span's element count,
+// [i] accesses one element, and .subspan(...) creates a view of part of the
+// same storage. The programmer must use valid indices and ranges; C++20
+// does not guarantee bounds checks for these operations.
 //
 // Contract: vector_count and dimension must be positive, query must contain
 // exactly dimension elements, and flat_vectors must contain exactly

@@ -15,7 +15,7 @@ double squared_distance(std::span<const double> left,
     }
 
     double total = 0.0;
-    for (std::size_t coordinate = 0; coordinate < left.size(); ++coordinate) {
+    for (std::size_t coordinate = 0; coordinate < left.size(); coordinate++) {
         const double difference = left[coordinate] - right[coordinate];
         total += difference * difference;
     }

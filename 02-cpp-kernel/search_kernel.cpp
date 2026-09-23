@@ -26,7 +26,7 @@ SearchResult find_nearest(std::span<const double> flat_vectors,
     }
 
     SearchResult best{0, std::numeric_limits<double>::infinity()};
-    for (std::size_t row = 0; row < vector_count; ++row) {
+    for (std::size_t row = 0; row < vector_count; row++) {
         const auto candidate = flat_vectors.subspan(row * dimension, dimension);
         const double distance = squared_distance(candidate, query);
 
