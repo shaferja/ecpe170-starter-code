@@ -15,6 +15,11 @@ mkdir -p build
   -std=c++20 -O0 -Wall -Wextra -Wpedantic \
   memory_example.cpp -o build/memory_example
 
+"$CXX" \
+  -std=c++20 -O0 -Wall -Wextra -Wpedantic \
+  memory_views.cpp -o build/memory_views
+
 echo "built: $(pwd)/build/kernel_driver"
 ./build/kernel_driver
 echo "built: $(pwd)/build/memory_example"
+echo "built: $(pwd)/build/memory_views"

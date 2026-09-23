@@ -15,7 +15,8 @@ int main() {
     const std::vector<double>& borrowed_query = query;
 
     // TODO(student): Predict both lines before running. In a memory diagram,
-    // identify the owners, aliases, addresses, and lifetime of each object.
+    // use this checkpoint to show values, copies, owners, aliases, and lifetimes.
+    // Add address-printing statements later, as directed by Activity 10.
     std::cout << value << ' ' << copied_value << '\n';
     std::cout << query.size() << ' ' << borrowed_query[0] << '\n';
 }
