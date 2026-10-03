@@ -69,8 +69,10 @@ python benchmark_extension.py \
 
 The table separates pure Python, native calls with preconverted arrays, and native
 calls with NumPy conversion inside the timer. Input generation is excluded from
-all three. Tiny inputs may be slower through the extension because a call boundary
-has fixed overhead; larger inputs can amortize that cost.
+all three. Every call into C++ has a fixed cost, and converting Python lists to
+NumPy arrays adds more. Compare each native row with `python` at every size, and
+compare the two native rows to see how much of the time is conversion. Don't
+assume where C++ starts to win; measure it.
 
 ## 5. Investigate one import-path failure safely
 
