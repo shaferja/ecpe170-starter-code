@@ -24,8 +24,8 @@ g++ -std=c++20 -O2 -Wall -Wextra -Wpedantic cache_bench.cpp -o cache_bench
 ./cache_bench --rows 16384 --cols 256 --trials 7
 ```
 
-The program prints the architecture, problem size, matching checksums, and median
-milliseconds for each access pattern. A matching checksum supports comparable
+The program prints the problem size, matching checksums, and median milliseconds
+for each access pattern. Record the architecture separately with `uname -m`. A matching checksum supports comparable
 work; it does not by itself prove that the timing is noise-free. Try larger sizes
 if both patterns fit comfortably in cache or produce nearly identical medians.
 
