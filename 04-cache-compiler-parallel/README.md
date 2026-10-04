@@ -95,5 +95,7 @@ g++ -std=c++20 -O2 -Wall -Wextra -Wpedantic -fopenmp \
 `race_reduction` contains an intentionally unsafe shared update for observation;
 the reduction result is the correctness reference. One lucky correct race result
 does not make the code safe. `false_sharing` compares compact per-thread counters
-with counters separated onto 64-byte boundaries. Both versions should be correct;
+with counters separated onto 64-byte boundaries. Each counter is a `std::atomic` so
+every increment must update its cache line; each thread still owns its own counter,
+so there is no race. Both versions should be correct;
 only timing may differ, and noisy or reversed results should be reported honestly.

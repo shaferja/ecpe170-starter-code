@@ -1,4 +1,5 @@
 #include <algorithm>
+#include <atomic>
 #include <chrono>
 #include <cstdint>
 #include <iomanip>
@@ -13,12 +14,16 @@
 
 namespace {
 
+// Each thread adds to its own counter, so there is no data race. The add is
+// atomic so that every increment is written to memory instead of being kept in
+// a register, which makes the cache-line traffic between cores visible.
 struct CompactCounter {
-    volatile std::uint64_t value = 0;
+    std::atomic<std::uint64_t> value{0};
 };
 
+// alignas(64) gives each counter its own 64-byte cache line.
 struct alignas(64) SeparatedCounter {
-    volatile std::uint64_t value = 0;
+    std::atomic<std::uint64_t> value{0};
 };
 
 struct Options {
@@ -64,13 +69,13 @@ std::pair<double, std::uint64_t> run_once(std::uint64_t iterations, int threads)
         const int thread_id = omp_get_thread_num();
         Counter& counter = counters[static_cast<std::size_t>(thread_id)];
         for (std::uint64_t i = 0; i < iterations; ++i) {
-            counter.value = counter.value + 1;
+            counter.value.fetch_add(1, std::memory_order_relaxed);
         }
     }
     const auto stop = std::chrono::steady_clock::now();
     std::uint64_t total = 0;
     for (const Counter& counter : counters) {
-        total += counter.value;
+        total += counter.value.load();
     }
     const double elapsed =
         std::chrono::duration<double, std::milli>(stop - start).count();
