@@ -18,6 +18,8 @@ security, or production-reliability framework.
 - `protocol_tests.py`: minimal protocol-conformance tests.
 - `load_test.py`: concurrent end-to-end load generator with summary/CSV output.
 - `debugging-receipt-template.md`: symptom-to-next-experiment investigation record.
+- `stream_demo.py`, `frame_demo.py`, `check_request.py`: short Activity 20 demos of
+  one `recv()` returning several requests, newline framing, and request checks.
 
 ## Protocol v1
 
