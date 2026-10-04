@@ -44,13 +44,17 @@ python -m pip install matplotlib
 python plot_results.py results/m0-baseline.csv --save results/m0-baseline.png --no-show
 ```
 
-Omit `--no-show` to also open a graph window on a desktop VM. Upload `results/m0-baseline.png` and its input CSV file(s) with the command/output receipts. In `m0-response`, describe one relationship visible in the graph and what it does **not** yet establish about the cause. A graph documents the symptom; it does not prove a diagnosis.
+Omit `--no-show` to also open a graph window on a desktop VM. Upload `results/m0-baseline.png` and its input CSV file(s) with your saved output files. In `m0-response`, describe one relationship visible in the graph and what it does **not** yet establish about the cause. A graph documents the symptom; it does not prove a diagnosis.
+
+## Settings
+
+Each script's `--help` lists its settings. The Canvas case page lists every setting with its default and what it controls. Change a setting only when your hypothesis calls for it, and record every setting you use.
 
 ## Evidence Contract
 
-- Keep `--database-size`, `--dimension`, and `--seed` identical for a comparison.
+- Keep `--database-size`, `--dimension`, and `--seed` identical for a comparison, and set them the same on both `server.py` and `load_test.py`. A `--database-size` mismatch is not reported as an error; the first line of the server log records the server's real settings.
 - Do not omit errors when calculating throughput.
-- Match client request IDs to server telemetry.
+- Match client request IDs to server telemetry. IDs restart at `case-a-000000` in every run, so keep one server log per condition.
 - Use at least five repeated final runs under light and concurrent load.
 - Rerun `test_contract.py` after every intervention.
 

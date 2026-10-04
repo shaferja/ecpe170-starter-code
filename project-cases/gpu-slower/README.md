@@ -38,9 +38,13 @@ python -m pip install matplotlib
 python plot_results.py results/m0-cpu.csv --trace gpu_trace_packet.csv --save results/m0-baseline.png --no-show
 ```
 
-Omit `--no-show` to also open a graph window on a desktop VM. Upload `results/m0-baseline.png` and its input CSV file(s) with the command/output receipts. In `m0-response`, describe one relationship visible in the graph and what it does **not** yet establish about the cause. A graph documents the symptom; it does not prove a diagnosis.
+Omit `--no-show` to also open a graph window on a desktop VM. Upload `results/m0-baseline.png` and its input CSV file(s) with your saved output files. In `m0-response`, describe one relationship visible in the graph and what it does **not** yet establish about the cause. A graph documents the symptom; it does not prove a diagnosis.
 
 The graph separates your VM CPU measurements from instructor-provided trace panels for both residency assumptions. Upload `gpu_trace_packet.csv` as the trace input and preserve its provenance label.
+
+## Settings
+
+Each script's `--help` lists its settings. The Canvas case page lists every setting with its default and what it controls. Change a setting only when your hypothesis calls for it, and record every setting you use.
 
 ## Evidence Contract
 
