@@ -69,7 +69,8 @@ client sends bytes -> server reads through newline -> parses JSON -> validates s
 
 With `--trace`, the server prints stage events. Every completed request also prints
 one compact JSON log with request ID, byte counts, `parse_ms`, `compute_ms`,
-end-to-end `response_ms`, status, and `error_path`. An error path should normally
+server-side `response_ms` (from the start of the read through the send; it excludes
+client connect and startup), status, and `error_path`. An error path should normally
 have no vector-compute time.
 
 ## Multiple clients and load testing

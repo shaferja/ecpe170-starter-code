@@ -8,9 +8,10 @@ model, timing categories, and crossover question.
 
 ## Files
 
-- `gpu_trace_packet.csv`: a fixed representative instructor trace with two GPU
-  timing scenarios across several batch sizes. Treat it as trace evidence for the
-  stated scenarios, not as a measurement from your own machine.
+- `gpu_trace_packet.csv`: a saved GPU trace with two data-residency scenarios
+  across several batch sizes. It was not made on your machine, and it does not
+  record which GPU, database size, or command produced it. Compare its rows with
+  each other, not with your CPU times.
 - `cpu_fallback_benchmark.py`: portable AMD64/ARM64 benchmark that emits the same
   timing-table shape while clearly labeling CPU analog measurements.
 - `trace-analysis-template.md`: worksheet for comparing evidence paths and making a
@@ -46,10 +47,11 @@ python3 cpu_fallback_benchmark.py --batch-sizes 1,8,32 \
 ```
 
 The CPU program uses the GPU-shaped columns as instrumentation analogs:
-`h2d_ms` is host input copying, `launch_compute_ms` is a CPU function call plus exact
-vector-search compute, and `d2h_ms` is result copying. These numbers are not fake GPU
-measurements. Use them to practice separating scopes and to compare with
-`gpu_trace_packet.csv`, which supplies representative instructor GPU evidence.
+`h2d_ms` copies the query lists (the database is copied only with
+`--database-residency copy_each_trial`), `launch_compute_ms` is a CPU function call
+plus exact vector-search compute, and `d2h_ms` is result copying. These numbers are
+CPU stand-ins, not GPU measurements. Use them to practice separating timer scopes,
+and read `gpu_trace_packet.csv` alongside them without dividing one by the other.
 
 Use `--database-residency copy_each_trial` to model the extra cost of preparing the
 database on every operation. The default, `resident`, prepares the database once.
