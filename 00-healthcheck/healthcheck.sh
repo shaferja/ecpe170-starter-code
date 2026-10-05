@@ -65,6 +65,14 @@ else
     warn "$os_pretty detected; the official class VM is Ubuntu 26.04. Continuing with the remaining capability checks."
 fi
 
+# WSL 2 students use Windows VS Code with its WSL extension, so the editor checks
+# below accept the Windows `code` command and treat extension listing as advisory.
+on_wsl=0
+if [[ -n "${WSL_DISTRO_NAME:-}" ]] || grep -qi microsoft /proc/sys/kernel/osrelease 2>/dev/null; then
+    on_wsl=1
+    printf 'Environment: WSL 2 (%s)\n' "${WSL_DISTRO_NAME:-Ubuntu}"
+fi
+
 architecture="$(uname -m 2>/dev/null || printf 'unknown')"
 case "$architecture" in
     x86_64|amd64)
@@ -106,6 +114,8 @@ check_command "npm" npm npm
 
 if command -v code >/dev/null 2>&1; then
     pass "Visual Studio Code: $(command -v code)"
+elif [[ "$on_wsl" -eq 1 ]]; then
+    fail "Visual Studio Code is missing (WSL: install VS Code on Windows and its WSL extension, then close and reopen Ubuntu; see the WSL setup guide)"
 else
     fail "Visual Studio Code is missing (follow the Microsoft APT-repository steps in the course setup guide, then install package: code)"
 fi
@@ -146,20 +156,32 @@ if command -v code >/dev/null 2>&1; then
     pass "Visual Studio Code version: $(code --version 2>&1 | head -n 1)"
 
     printf '\n%s\n' '== Required VS Code extensions =='
+    if [[ "$on_wsl" -eq 1 ]]; then
+        # Under WSL the extensions must be installed in the WSL window, and the
+        # Windows `code` command may list Windows-side extensions instead, so a
+        # missing extension is a warning here rather than a blocking failure.
+        missing_extension_check=warn
+    else
+        missing_extension_check=fail
+    fi
     if vscode_extensions="$(code --list-extensions 2>/dev/null)"; then
         if printf '%s\n' "$vscode_extensions" | grep -Fqx 'ms-python.python'; then
             pass "VS Code Python extension: ms-python.python"
+        elif [[ "$on_wsl" -eq 1 ]]; then
+            warn "VS Code Python extension not listed (WSL: in a VS Code window labeled WSL, open Extensions and confirm Python is installed in WSL)"
         else
             fail "VS Code Python extension is missing (install with: code --install-extension ms-python.python)"
         fi
 
         if printf '%s\n' "$vscode_extensions" | grep -Fqx 'ms-vscode.cpptools'; then
             pass "VS Code C/C++ extension: ms-vscode.cpptools"
+        elif [[ "$on_wsl" -eq 1 ]]; then
+            warn "VS Code C/C++ extension not listed (WSL: in a VS Code window labeled WSL, open Extensions and confirm C/C++ is installed in WSL)"
         else
             fail "VS Code C/C++ extension is missing (install with: code --install-extension ms-vscode.cpptools)"
         fi
     else
-        fail "Could not list VS Code extensions (run: code --list-extensions)"
+        "$missing_extension_check" "Could not list VS Code extensions (run: code --list-extensions)"
     fi
 fi
 

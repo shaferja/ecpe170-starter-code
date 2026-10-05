@@ -12,6 +12,8 @@ Use the actual path to your starter-code checkout if it is not `~/ecpe170-starte
 
 The check supports native AMD64 Ubuntu (`uname -m` reports `x86_64`) and native ARM64 Ubuntu (`uname -m` reports `aarch64`) without processor emulation. It also verifies that the `code` command for Visual Studio Code and the required Microsoft Python (`ms-python.python`) and C/C++ (`ms-vscode.cpptools`) extensions are installed. If the editor check fails, follow the [official Microsoft APT-repository instructions](https://code.visualstudio.com/docs/setup/linux#_debian-and-ubuntu-based-distributions) and install the `code` package. If an extension check fails, run the exact `code --install-extension` repair command shown in the receipt, then rerun the complete health check.
 
+On WSL 2, the course uses VS Code installed on Windows with its WSL extension, not the Linux `code` package. The check prints `Environment: WSL 2`, passes when the Windows `code` command is available inside Ubuntu, and reports a missing extension as `[WARN]` rather than `[FAIL]`, because WSL extensions are installed from a VS Code window connected to WSL. Follow the course WSL setup guide.
+
 - `[PASS]` means the named required capability worked.
 - `[WARN]` means a nonblocking difference: Ubuntu 26.04 is the official class VM, but other operating systems can be ready if all capability checks pass.
 - `[FAIL]` means a blocking setup problem. A later pass does not cancel it.
