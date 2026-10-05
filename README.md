@@ -18,7 +18,7 @@ cd ~/ecpe170-starter-code
 git pull --ff-only
 ```
 
-If Git reports local edits, do not discard them blindly. Preserve your work in your own repository or ask the instructor for help, then update the clean starter copy.
+If Git reports local edits, do not discard them blindly. Copy anything you want to keep into your own folder under `~/ecpe170` or ask the instructor for help, then update the clean starter copy.
 
 ## Available Now
 
@@ -33,11 +33,11 @@ If Git reports local edits, do not discard them blindly. Preserve your work in y
 
 ## Organization
 
-Use only files that are committed here and linked from the current activity or project brief. The `project-cases/` directory provides working starting systems, but students create their own individual repositories, diagnoses, interventions, and evidence. Private expected outputs, solution sketches, fault maps, troubleshooting notes, and grading anchors belong under `instructor/`, outside this student-facing directory.
+Use only files that are committed here and linked from the current activity or project brief. The `project-cases/` directory provides working starting systems, but each student works in their own case working folder and creates their own diagnoses, interventions, and evidence. A personal Git repository is not required. Private expected outputs, solution sketches, fault maps, troubleshooting notes, and grading anchors belong under `instructor/`, outside this student-facing directory.
 
 ## Using Starter Files
 
-1. Copy the relevant starter directory into your personal course repository if the activity asks you to modify it.
-2. Preserve the original or commit it before editing so you can inspect your changes.
+1. Never edit files in this checkout. If an activity asks you to change a file, copy the starter directory into your own folder under `~/ecpe170` first, as the activity page shows.
+2. The starter checkout stays as the unchanged original, so you can compare your copy with it to see what you changed.
 3. Run the documented correctness checks before collecting performance evidence.
 4. Record AI-assisted decisions and verification using the AI Work Log instructions in the course Canvas site when required.
