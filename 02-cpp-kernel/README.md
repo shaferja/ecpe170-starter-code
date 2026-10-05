@@ -14,8 +14,8 @@ Required work uses portable C++20 and runs natively on AMD64 (`x86_64`) and ARM6
 - the vector count and dimension that describe that sequence; and
 - one read-only query containing exactly `dimension` `double` values.
 
-The function borrows its inputs for the duration of the call, retains no pointer,
-and returns a value containing `(smallest best index, squared distance)`. It rejects
+The function reads its inputs in place during the call (it does not copy them),
+keeps no pointer to them afterward, and returns a value containing `(smallest best index, squared distance)`. It rejects
 empty inputs and shape mismatches. A strict `<` comparison preserves the first
 matching index on a tie, matching the Python reference contract.
 
@@ -25,19 +25,25 @@ submission; the starter remains runnable before you edit it.
 
 ## Build and run the checks
 
-From this directory on your personal Linux VM:
+Keep this checkout unchanged: building here would add a `build/` folder. Copy the
+packet into your activity folder and build there (Activity 09 uses
+`~/ecpe170/activity09`):
 
 ```bash
-chmod +x build_cpp.sh
+mkdir -p ~/ecpe170/activity09
+cp -a --update=none ~/ecpe170-starter-code/02-cpp-kernel/. ~/ecpe170/activity09/
+cd ~/ecpe170/activity09
 ./build_cpp.sh
 ```
 
+`cp -a --update=none` copies the packet without overwriting files you already
+have, so it is safe to run again.
+
 The script uses `g++` by default. To select another C++20 compiler, set `CXX`, for
-example `CXX=clang++ ./build_cpp.sh`. It creates the generated executable at
+example `CXX=clang++ ./build_cpp.sh`. It creates the executable
 `build/kernel_driver`, runs five correctness checks, and also compiles
 `build/memory_example` and `build/memory_views` for Activity 10 without running
-either memory program. Work in your personal activity copy as directed on the
-activity page. For each program, follow its labeled source-reading steps,
+either memory program. For each program, follow its labeled source-reading steps,
 answer the guided which-object-changes questions, and sketch the relationships
 before running that program. Full terminal-output predictions are not required:
 
@@ -60,13 +66,14 @@ borrowing its elements.
 Activity 10 also supplies address-printing statements to add to your personal
 copy after the first prediction/run cycle.
 
-You can also build manually:
+You can also build by hand from your activity folder:
 
 ```bash
+mkdir -p build
 g++ -std=c++20 -O2 -Wall -Wextra -Wpedantic \
   distance.cpp search_kernel.cpp kernel_driver.cpp \
-  -o kernel_driver
-./kernel_driver
+  -o build/kernel_driver
+./build/kernel_driver
 ```
 
 Read the first compiler error first. Do not benchmark or wrap the kernel until all

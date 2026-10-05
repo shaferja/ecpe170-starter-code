@@ -1,14 +1,20 @@
 # Python Vector-Search Starter Packet
 
-These portable Python files support Activities 04-08. Run them on your personal
-Linux VM from this directory. They use no architecture-specific instructions and
-work natively on AMD64 (`x86_64`) and ARM64 (`aarch64`) Ubuntu.
+These portable Python files support Activities 04-08. They use no
+architecture-specific instructions and work natively on AMD64 (`x86_64`) and
+ARM64 (`aarch64`) Ubuntu.
+
+Keep this checkout unchanged. You can run a script here with `python3 -B`
+(`-B` stops Python from writing `__pycache__` files), as long as any output file
+goes to your own folder under `~/ecpe170`. To edit a file, copy it into your
+activity folder first. Each activity page gives the exact folder and commands.
 
 ## Check correctness first
 
 ```bash
-python3 -m unittest -v test_vector_search.py
-python3 vector_search_baseline.py
+cd ~/ecpe170-starter-code/01-python-baseline
+python3 -B -m unittest -v test_vector_search.py
+python3 -B vector_search_baseline.py
 ```
 
 The contract tests cover a one-vector input, a known nearest vector, an exact
@@ -18,41 +24,47 @@ dimension mismatch, and agreement between nested and flat representations.
 ## Run a reproducible benchmark
 
 ```bash
-python3 vector_search_benchmark.py \
+mkdir -p ~/ecpe170/results
+
+python3 -B vector_search_benchmark.py \
   --vectors 2000 --dimension 32 --queries 10 \
   --trials 7 --warmups 2 --seed 170 \
   --representation nested --format table
 
-python3 vector_search_benchmark.py \
+python3 -B vector_search_benchmark.py \
   --vectors 2000 --dimension 32 --queries 10 \
   --trials 7 --warmups 2 --seed 170 \
-  --representation flat --format csv > results-flat.csv
+  --representation flat --format csv > ~/ecpe170/results/results-flat.csv
 ```
 
-`--vectors` controls input size. The harness creates data and converts its
-representation before starting the timer. Its reported timed scope is exact search
-for all queries; setup and conversion are excluded.
+`--vectors` controls input size. The script creates the data and converts it to
+the chosen layout before it starts the timer. The timer includes only the exact
+search for all queries; creating and converting the data are not timed.
 
-Use the **Benchmark Reproducibility Receipt** page under **Resources** in the
-Canvas course with every major claim. Record the exact command rather than reconstructing it later.
+For every speed claim, write down how you ran it, using the **Benchmark
+Reproducibility Receipt** page under **Resources** in Canvas. Copy the exact
+command as you run it rather than reconstructing it later.
 
 ## Profile the search kernel
 
 ```bash
-python3 profile_vector_search.py \
+python3 -B profile_vector_search.py \
   --vectors 5000 --dimension 32 --queries 20 \
-  --representation nested --output profile-nested.txt
+  --representation nested --output ~/ecpe170/results/profile-nested.txt
 
-head -n 25 profile-nested.txt
+head -n 25 ~/ecpe170/results/profile-nested.txt
 ```
 
-Input generation occurs before profiling starts. Compare nested and flat
-representations by changing only `--representation`.
+The data is created before profiling starts. Compare the nested and flat layouts
+by changing only `--representation`. The profiler adds a small cost to every
+function call it records, so a layout that makes many more calls looks slower in
+the profile than it really is. Confirm any layout difference with
+`vector_search_benchmark.py` before you trust it.
 
 ## Compare Python with NumPy
 
 ```bash
-python3 numpy_vector_search.py \
+python3 -B numpy_vector_search.py \
   --vectors 5000 --dimension 32 --queries 10 \
   --trials 7 --warmups 2 --seed 170
 ```
